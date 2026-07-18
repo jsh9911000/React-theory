@@ -1,9 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from './assets/vite.svg';
+import heroImg from './assets/hero.png';
 //CSS-in-JS 라이브러리 Emotion.
-import styled, { type StyledComponent } from '@emotion/styled'
+import styled, { type StyledComponent } from '@emotion/styled';
+import {Hello1, OptionHello } from "./Hello";   //여러 개를 보내는 named export 방식은 중괄호를 사용.
+import { UserContext } from "./Context";
+import { ContextHello } from "./ContextHello";
 
 //Emotion 방식으로 버튼에 CSS 입히기.
 const Container = styled.div `
@@ -36,16 +39,41 @@ const Button = styled.button `
   padding: 10px;
 `;
 
-//main.tsx에 보내줄 App 함수. 
+//main.tsx에 보내줄 App 함수. return 시 소괄호 사용.
+/*
 function App() {
 
-  //return 시에 소괄호를 사용.
   return (
     <Container>
       <Header> 
       </Header>
       <Button>버튼</Button>
     </Container>
+  )
+}
+*/
+
+//테그 안에서 props를 전달.
+/*
+function App() {
+  return (
+    <div>
+      <Hello1 name={'jack'} color={'red'}></Hello1>
+      <OptionHello name={'john'}></OptionHello>
+    </div>
+  )
+}
+*/
+
+function App() {
+  return (
+    <UserContext.Provider value="jack">
+      
+      {/* props를 전달하지 않아도 된다. */}
+      {/* Provider 하위에 있는 컴포넌트들은 "jack"을 사용할 수 있다. */}
+      <ContextHello />
+
+    </UserContext.Provider>
   )
 }
 
